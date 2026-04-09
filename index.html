@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WB 微博 深度分析 — 巴菲特神谕分析师</title>
+<meta name="description" content="融合巴菲特投资哲学与现代多维分析框架的微博（NASDAQ: WB）深度分析报告">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F2EDE8; --bg-alt: #EBE4DD; --surface: #FFFFFF; --surface-hover: #F9F6F3;
+  --border: #D8CFCA; --border-accent: #C4A882; --text: #4A433E; --text-secondary: #7A726B;
+  --text-dim: #A09890; --heading: #3A3330;
+  --morandi-rose: #C9A9A0; --morandi-sage: #A3B0A0; --morandi-sand: #C4A882;
+  --morandi-blue: #9EB0BC; --morandi-mauve: #B0A0B0; --morandi-clay: #BEA898;
+  --morandi-olive: #A0A890; --morandi-stone: #B0AAA0;
+  --accent: #8B7355; --accent-light: rgba(139,115,85,0.08); --accent-border: rgba(139,115,85,0.2);
+  --green: #7A9E7E; --green-bg: rgba(122,158,126,0.1); --red: #BF7B6E; --red-bg: rgba(191,123,110,0.1);
+  --yellow: #C4A060; --yellow-bg: rgba(196,160,96,0.1); --blue: #7E9BB0; --blue-bg: rgba(126,155,176,0.1);
+  --table-header-bg: #EDE7E1; --table-stripe: rgba(0,0,0,0.02); --table-hover: rgba(139,115,85,0.06);
+  --shadow-sm: 0 1px 3px rgba(74,67,62,0.06); --shadow-md: 0 4px 12px rgba(74,67,62,0.08);
+  --shadow-lg: 0 8px 32px rgba(74,67,62,0.1);
+  --badge-buy-bg: rgba(122,158,126,0.15); --badge-buy-text: #5A7E5E;
+  --badge-sell-bg: rgba(191,123,110,0.15); --badge-sell-text: #9E5A4E;
+  --badge-hold-bg: rgba(196,160,96,0.15); --badge-hold-text: #8E7030;
+  --radius: 12px; --radius-sm: 8px; --radius-lg: 16px;
+  --content-width: 900px; --sidebar-width: 260px;
+}
+[data-theme="dark"] {
+  --bg: #262320; --bg-alt: #2E2A27; --surface: #33302D; --surface-hover: #3B3734;
+  --border: #4A4540; --border-accent: #8B7355; --text: #E0D8D0; --text-secondary: #B0A89E;
+  --text-dim: #807870; --heading: #F0E8E0;
+  --accent: #C4A882; --accent-light: rgba(196,168,130,0.1); --accent-border: rgba(196,168,130,0.25);
+  --morandi-rose: #C9A9A0; --morandi-sage: #8EA088; --morandi-sand: #C4A882;
+  --morandi-blue: #8AA0B0; --morandi-mauve: #A090A0;
+  --green: #8EB892; --green-bg: rgba(142,184,146,0.12); --red: #D08878; --red-bg: rgba(208,136,120,0.12);
+  --yellow: #D4B070; --yellow-bg: rgba(212,176,112,0.12); --blue: #8EAEC0; --blue-bg: rgba(142,174,192,0.12);
+  --table-header-bg: #3B3734; --table-stripe: rgba(255,255,255,0.02); --table-hover: rgba(196,168,130,0.08);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2); --shadow-md: 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.3);
+  --badge-buy-bg: rgba(142,184,146,0.18); --badge-buy-text: #8EB892;
+  --badge-sell-bg: rgba(208,136,120,0.18); --badge-sell-text: #D08878;
+  --badge-hold-bg: rgba(212,176,112,0.18); --badge-hold-text: #D4B070;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;transition:background .4s,color .3s}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .4s,border-color .3s}
+[data-theme="light"] .topbar{background:rgba(255,255,255,.9)}
+[data-theme="dark"] .topbar{background:rgba(51,48,45,.9)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+.topbar-brand{display:flex;align-items:center;gap:10px;font-family:'Noto Serif SC',serif;font-size:1rem;font-weight:600;color:var(--heading);text-decoration:none}
+.topbar-brand .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--morandi-sand),var(--morandi-rose));display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.topbar-meta{font-size:.75rem;color:var(--text-dim);margin-right:12px}
+.theme-toggle{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .25s}
+.theme-toggle:hover{background:var(--surface-hover);border-color:var(--accent);color:var(--accent)}
+.layout{max-width:1200px;margin:0 auto;padding:72px 2rem 4rem;display:flex;gap:2.5rem}
+.sidebar{width:var(--sidebar-width);flex-shrink:0;position:sticky;top:72px;height:calc(100vh - 88px);overflow-y:auto;padding:1rem 0}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.sidebar-nav{list-style:none}.sidebar-nav li{margin-bottom:2px}
+.sidebar-nav a{display:block;padding:6px 12px;font-size:.8rem;color:var(--text-secondary);text-decoration:none;border-radius:var(--radius-sm);border-left:2px solid transparent;transition:all .2s;line-height:1.5}
+.sidebar-nav a:hover{color:var(--accent);background:var(--accent-light)}
+.sidebar-nav a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-light);font-weight:500}
+.sidebar-nav .nav-group{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);padding:16px 12px 6px}
+.content{flex:1;min-width:0;max-width:var(--content-width)}
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2.5rem;margin-bottom:2rem;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--morandi-sand),var(--morandi-rose),var(--morandi-sage),var(--morandi-blue))}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-light);border:1px solid var(--accent-border);border-radius:999px;padding:4px 14px;margin-bottom:1.25rem}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:700;color:var(--heading);line-height:1.3;margin-bottom:.5rem}
+.hero-subtitle{font-size:1rem;color:var(--text-secondary);margin-bottom:1.5rem}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.hero-stat{text-align:center}
+.hero-stat .label{font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.hero-stat .value{font-family:'JetBrains Mono',monospace;font-size:1.15rem;font-weight:600;color:var(--heading)}
+.hero-stat .change{font-size:.72rem;margin-top:2px}
+.change.up{color:var(--green)}.change.down{color:var(--red)}
+.verdict{background:linear-gradient(135deg,var(--surface),var(--bg-alt));border:1px solid var(--border-accent);border-radius:var(--radius-lg);padding:2rem;margin-bottom:2rem;box-shadow:var(--shadow-md);position:relative}
+.verdict::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--morandi-sand);border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.verdict-title{font-family:'Noto Serif SC',serif;font-size:1.15rem;font-weight:600;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.verdict p{font-size:.92rem;line-height:1.8;color:var(--text)}.verdict strong{color:var(--heading)}
+.decision-summary{background:var(--surface);border:2px solid var(--morandi-sage);border-radius:var(--radius-lg);padding:1.5rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow-md);display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.25rem;align-items:center}
+.ds-item{text-align:center}
+.ds-item .ds-label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.ds-item .ds-value{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--heading)}
+.ds-item .ds-note{font-size:.7rem;color:var(--text-secondary);margin-top:2px}
+.ds-item .ds-value.rating-buy{color:var(--green)}.ds-item .ds-value.rating-hold{color:var(--yellow)}
+.module{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;box-shadow:var(--shadow-sm);transition:box-shadow .3s}
+.module:hover{box-shadow:var(--shadow-md)}
+.module-header{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.module-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.module-num.n1{background:rgba(201,169,160,.2);color:var(--morandi-rose)}
+.module-num.n2{background:rgba(163,176,160,.2);color:var(--morandi-sage)}
+.module-num.n3{background:rgba(196,168,130,.2);color:var(--morandi-sand)}
+.module-num.n4{background:rgba(158,176,188,.2);color:var(--morandi-blue)}
+.module-num.n5{background:rgba(176,160,176,.2);color:var(--morandi-mauve)}
+.module-num.n6{background:rgba(190,168,152,.2);color:var(--morandi-clay)}
+.module-num.n7{background:rgba(201,169,160,.2);color:var(--morandi-rose)}
+.module-num.n8{background:rgba(163,176,160,.2);color:var(--morandi-sage)}
+.module-num.n9{background:rgba(196,168,130,.2);color:var(--morandi-sand)}
+.module-num.n10{background:rgba(158,176,188,.2);color:var(--morandi-blue)}
+.module-num.n11{background:rgba(191,123,110,.15);color:var(--red)}
+.module-num.n12{background:rgba(196,168,130,.2);color:var(--morandi-sand)}
+.module h2{font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:600;color:var(--heading)}
+.module h3{font-family:'Noto Serif SC',serif;font-size:1rem;font-weight:600;color:var(--heading);margin:1.5rem 0 .75rem}
+.module h3:first-of-type{margin-top:0}
+.module p,.module li{font-size:.88rem;line-height:1.8;color:var(--text)}
+.module ul,.module ol{padding-left:1.5rem;margin:.5rem 0}.module li{margin-bottom:.3rem}
+.module strong{color:var(--heading);font-weight:600}
+.table-wrapper{overflow-x:auto;margin:1rem 0;border-radius:var(--radius-sm);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.82rem;line-height:1.5}
+thead{background:var(--table-header-bg)}
+th{padding:10px 14px;font-weight:600;color:var(--heading);text-align:left;white-space:nowrap;border-bottom:2px solid var(--border);font-size:.78rem}
+td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+tr:nth-child(even){background:var(--table-stripe)}tr:hover{background:var(--table-hover)}
+td:first-child{font-weight:500;color:var(--heading)}
+.num{font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:right}th.num{text-align:right}
+.callout{padding:1rem 1.25rem;border-radius:var(--radius-sm);margin:1rem 0;font-size:.85rem;line-height:1.7;border-left:3px solid}
+.callout.info{background:var(--blue-bg);border-color:var(--blue)}
+.callout.success{background:var(--green-bg);border-color:var(--green)}
+.callout.warning{background:var(--yellow-bg);border-color:var(--yellow)}
+.callout.danger{background:var(--red-bg);border-color:var(--red)}
+.callout-title{font-weight:600;color:var(--heading);margin-bottom:4px}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:600;letter-spacing:.02em}
+.badge.buy{background:var(--badge-buy-bg);color:var(--badge-buy-text)}
+.badge.sell{background:var(--badge-sell-bg);color:var(--badge-sell-text)}
+.badge.hold{background:var(--badge-hold-bg);color:var(--badge-hold-text)}
+.code-block{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;overflow-x:auto;margin:1rem 0;color:var(--text)}
+.highlight-box{background:var(--accent-light);border:1px solid var(--accent-border);border-radius:var(--radius);padding:1.25rem;margin:1rem 0}
+.highlight-box .hl-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:600;margin-bottom:.5rem}
+.moat-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.moat-item:last-child{border-bottom:none}
+.moat-label{flex:1;font-size:.85rem;font-weight:500;color:var(--heading)}
+.moat-rating{font-size:.72rem;font-weight:600;padding:2px 10px;border-radius:999px}
+.moat-rating.wide{background:var(--green-bg);color:var(--green)}
+.moat-rating.narrow{background:var(--yellow-bg);color:var(--yellow)}
+.moat-rating.none{background:var(--red-bg);color:var(--red)}
+.scorecard-grid{display:grid;grid-template-columns:1fr;gap:6px;margin:1rem 0}
+.score-row{display:flex;align-items:center;padding:8px 12px;border-radius:var(--radius-sm);background:var(--bg-alt);gap:12px}
+.score-row .criteria{flex:1;font-size:.82rem;color:var(--text)}
+.score-row .score{font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:600;color:var(--accent);min-width:42px;text-align:center}
+.score-row .dots{display:flex;gap:4px}
+.score-row .dot{width:10px;height:10px;border-radius:50%;background:var(--border)}
+.score-row .dot.filled{background:var(--morandi-sand)}
+.grade-badge{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:1.5rem;font-weight:700}
+.grade-badge.a{background:var(--green-bg);color:var(--green);border:2px solid var(--green)}
+.grade-badge.b{background:var(--blue-bg);color:var(--blue);border:2px solid var(--blue)}
+.grade-badge.c{background:var(--yellow-bg);color:var(--yellow);border:2px solid var(--yellow)}
+.decision-box{background:var(--surface);border:2px solid var(--green);border-radius:var(--radius-lg);padding:2rem;margin:1.5rem 0}
+.decision-header{display:flex;align-items:center;gap:16px;margin-bottom:1.5rem}
+.decision-rating{font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:700;padding:8px 20px;border-radius:var(--radius);background:var(--green-bg);color:var(--green)}
+.decision-price{font-family:'JetBrains Mono',monospace}
+.decision-price .current{font-size:1.8rem;font-weight:700;color:var(--heading)}
+.decision-price .target{font-size:.82rem;color:var(--text-secondary)}
+.disclaimer{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:2rem;font-size:.78rem;color:var(--text-dim);line-height:1.7}
+.disclaimer strong{color:var(--text-secondary)}
+.page-footer{text-align:center;padding:2rem 0;margin-top:2rem;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim)}
+.page-footer a{color:var(--accent);text-decoration:none}.page-footer a:hover{text-decoration:underline}
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:42px;height:42px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-md);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;opacity:0;transform:translateY(10px);transition:all .3s;z-index:100}
+.back-to-top.visible{opacity:1;transform:translateY(0)}
+.back-to-top:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media(max-width:960px){.sidebar{display:none}.layout{padding:72px 1.25rem 3rem}.hero,.module{padding:1.5rem}}
+@media(max-width:600px){.layout{padding:64px 1rem 2rem}.hero{padding:1.25rem}.hero-stats{grid-template-columns:repeat(2,1fr)}.module{padding:1.25rem}.topbar-meta{display:none}th,td{padding:7px 10px;font-size:.75rem}.decision-summary{grid-template-columns:repeat(2,1fr)}}
+@media print{.topbar,.sidebar,.theme-toggle,.back-to-top{display:none!important}.layout{padding:0}.module{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+
+<nav class="topbar"><div class="topbar-inner">
+  <a href="#" class="topbar-brand"><div class="logo">B</div><span>巴菲特神谕分析师</span></a>
+  <div class="topbar-actions">
+    <span class="topbar-meta">2026-04-09 | NASDAQ: WB</span>
+    <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="Toggle theme"><span id="themeIcon">&#9790;</span></button>
+  </div>
+</div></nav>
+
+<div class="layout">
+
+<aside class="sidebar"><ul class="sidebar-nav" id="sidebarNav">
+  <li class="nav-group">概览</li>
+  <li><a href="#verdict">巴菲特裁决</a></li>
+  <li><a href="#summary">决策摘要</a></li>
+  <li><a href="#overview">公司概览</a></li>
+  <li class="nav-group">基本面</li>
+  <li><a href="#management">管理层评估</a></li>
+  <li><a href="#business">商业模式</a></li>
+  <li><a href="#moat">经济护城河</a></li>
+  <li><a href="#financials">财务分析</a></li>
+  <li><a href="#earningscall">电话会分析</a></li>
+  <li class="nav-group">估值与市场</li>
+  <li><a href="#valuation">多模型估值</a></li>
+  <li><a href="#competition">竞争分析</a></li>
+  <li><a href="#technical">技术面</a></li>
+  <li class="nav-group">风险与决策</li>
+  <li><a href="#catalysts">增长催化剂</a></li>
+  <li><a href="#risk">风险矩阵</a></li>
+  <li><a href="#scorecard">巴菲特计分卡</a></li>
+</ul></aside>
+
+<main class="content">
+
+<!-- ══ Hero ══ -->
+<section class="hero" id="hero">
+  <div class="hero-badge">深度分析报告</div>
+  <h1>WB 微博</h1>
+  <p class="hero-subtitle">融合巴菲特投资哲学与现代多维分析框架的机构级深度研究</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="label">股价</div><div class="value">$8.85</div><div class="change down">52周: $7.10 - $12.96</div></div>
+    <div class="hero-stat"><div class="label">市值</div><div class="value">$21.7亿</div></div>
+    <div class="hero-stat"><div class="label">净现金</div><div class="value">$13亿</div><div class="change up">$5.31/ADS</div></div>
+    <div class="hero-stat"><div class="label">PE (TTM)</div><div class="value">5.2x</div></div>
+    <div class="hero-stat"><div class="label">股息率</div><div class="value">6.9%</div><div class="change up">$0.61/ADS</div></div>
+    <div class="hero-stat"><div class="label">评级</div><div class="value" style="color:var(--green)">买入</div></div>
+  </div>
+</section>
+
+<!-- ══ Verdict ══ -->
+<section class="verdict" id="verdict">
+  <div class="verdict-title">巴菲特的裁决</div>
+  <p><strong>"微博是一块被遗忘在角落里的金砖——市场给它的企业价值只有$8.6亿，但这门生意每年吐出$5.8亿自由现金流。"</strong> 567百万月活用户、中国唯一的"公共舆论广场"地位、$24.1亿现金储备——这些事实与$21.7亿的市值形成荒谬的反差。问题是这块金砖正在慢慢氧化：收入3年零增长、广告市场份额被抖音和小红书蚕食、利润率从36%滑到21%。</p>
+  <p style="margin-top:.75rem"><strong>巴菲特会怎么看？这是经典的"烟蒂投资"</strong>——地上有个还能抽一口的烟头，几乎是免费的。$13亿净现金+$5亿年度FCF=你几乎不可能亏钱，但你也很难靠它发财。</p>
+</section>
+
+<!-- ══ Decision Summary ══ -->
+<section class="decision-summary" id="summary">
+  <div class="ds-item"><div class="ds-label">巴菲特计分</div><div class="ds-value">23/36</div><div class="ds-note">C+级 · 一般偏上</div></div>
+  <div class="ds-item"><div class="ds-label">投资评级</div><div class="ds-value rating-buy">买入</div><div class="ds-note">极端估值+现金堡垒</div></div>
+  <div class="ds-item"><div class="ds-label">12个月目标价</div><div class="ds-value">$18</div><div class="ds-note">独立估值中位数</div></div>
+  <div class="ds-item"><div class="ds-label">首仓买入价</div><div class="ds-value">$14</div><div class="ds-note">FV中位$18的80%</div></div>
+  <div class="ds-item"><div class="ds-label">股息率</div><div class="ds-value">6.9%</div><div class="ds-note">$0.61/ADS 年度</div></div>
+</section>
+
+<!-- ══ Module 1 ══ -->
+<section class="module" id="overview">
+  <div class="module-header"><div class="module-num n1">01</div><h2>公司概览与背景</h2></div>
+  <div class="table-wrapper"><table><tbody>
+    <tr><td>代码 / 交易所</td><td>WB / NASDAQ + 9898 / HKEX</td></tr>
+    <tr><td>市值</td><td class="num">~$21.7亿美元</td></tr>
+    <tr><td>行业</td><td>社交媒体平台</td></tr>
+    <tr><td>成立时间</td><td>2009年（新浪微博）</td></tr>
+    <tr><td>IPO</td><td>2014年 NASDAQ + 2022年 HKEX</td></tr>
+    <tr><td>总部</td><td>中国北京</td></tr>
+    <tr><td>用户规模</td><td>MAU 5.67亿 / DAU 2.52亿</td></tr>
+    <tr><td>52周价格区间</td><td class="num">$7.10 — $12.96</td></tr>
+  </tbody></table></div>
+
+  <h3>发展历程</h3>
+  <ul>
+    <li><strong>2009年</strong> — 新浪推出微博，对标Twitter</li>
+    <li><strong>2014年</strong> — NASDAQ上市（IPO价$17）</li>
+    <li><strong>2016-2018年</strong> — 用户爆发增长期，MAU突破4亿</li>
+    <li><strong>2019-2020年</strong> — 增长见顶，短视频冲击开始</li>
+    <li><strong>2021年</strong> — 阿里巴巴增持至~30%</li>
+    <li><strong>2022年</strong> — 港交所双重上市（9898.HK）</li>
+    <li><strong>2023-2025年</strong> — 收入停滞在$1.75-1.76B，进入"稳定期"</li>
+    <li><strong>2025年</strong> — 推出AI兴趣推荐流，AI视频创作工具</li>
+  </ul>
+
+  <h3>股权结构</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>股东</th><th class="num">持股比例</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>新浪/New Wave Holdings</td><td class="num">~45%</td><td>控股股东</td></tr>
+      <tr><td>阿里巴巴</td><td class="num">~30%</td><td>战略投资者，有董事会席位</td></tr>
+      <tr><td>CEO王高飞</td><td class="num">~0.3% (73万ADS)</td><td>持股极少</td></tr>
+      <tr><td>机构投资者</td><td class="num">~15%</td><td>—</td></tr>
+      <tr><td>公众</td><td class="num">~10%</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <p>双重股权结构，创始人团队通过新浪控制。阿里巴巴既是大股东又是最大广告客户——这种双重角色既是支撑也是风险。</p>
+</section>
+
+<!-- ══ Module 2 ══ -->
+<section class="module" id="management">
+  <div class="module-header"><div class="module-num n2">02</div><h2>管理层评估</h2></div>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>姓名</th><th>职位</th><th>背景</th></tr></thead>
+    <tbody>
+      <tr><td>王高飞</td><td>CEO（2014至今）</td><td>前新浪无线事业部总经理</td></tr>
+      <tr><td>曹国伟</td><td>董事长</td><td>新浪创始人</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>巴菲特测试：他是主人翁型经理人吗？</h3>
+  <p><strong>不是主人翁型经理人。</strong> 王高飞持股仅0.3%($64万)——不是"用自己身家下注"的人。真正的老板是曹国伟和阿里巴巴。但11年CEO任期显示出稳定性。</p>
+
+  <div class="table-wrapper" style="margin-top:1rem"><table>
+    <thead><tr><th>维度</th><th>评估</th><th class="num">评分</th></tr></thead>
+    <tbody>
+      <tr><td>资本配置能力</td><td>$150M分红+$200M回购授权，但不够激进——$24亿现金只分$1.5亿</td><td class="num">B-</td></tr>
+      <tr><td>坦诚程度</td><td>承认Q3广告下滑5%，不掩饰</td><td class="num">B</td></tr>
+      <tr><td>利益绑定</td><td>CEO持股极少，利益错位</td><td class="num">C</td></tr>
+      <tr><td>历史记录</td><td>维持了业务稳定，但未能扭转增长放缓</td><td class="num">B-</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ══ Module 3 ══ -->
+<section class="module" id="business">
+  <div class="module-header"><div class="module-num n3">03</div><h2>商业模式深度解析</h2></div>
+
+  <div class="callout info"><div class="callout-title">巴菲特的"一句话测试"</div>
+    微博是中国的"公共舆论广场"——靠热搜话题聚集5.67亿人，然后卖广告。
+  </div>
+
+  <h3>收入模型</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>类型</th><th class="num">收入占比</th><th class="num">收入</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>广告收入</td><td class="num">~85%</td><td class="num">$15.0亿</td><td>品牌广告+效果广告+KOL推广</td></tr>
+      <tr><td>增值服务 (VAS)</td><td class="num">~15%</td><td class="num">$2.56亿 (-2%)</td><td>会员+直播+游戏</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>关键经济指标</h3>
+  <ul>
+    <li><strong>广告ARPU ~$2.65/MAU/年</strong>——远低于Meta的$40+</li>
+    <li><strong>85%收入依赖广告</strong>——单一收入结构是巨大风险</li>
+    <li><strong>阿里巴巴是最大单一广告客户</strong>，剔除阿里后Q3广告下降13%</li>
+    <li><strong>AI广告创意</strong>占推广流消费的40%（2025年12月）</li>
+  </ul>
+</section>
+
+<!-- ══ Module 4 ══ -->
+<section class="module" id="moat">
+  <div class="module-header"><div class="module-num n4">04</div><h2>经济护城河分析</h2></div>
+
+  <div class="moat-item"><span class="moat-label">网络效应</span><span class="moat-rating narrow">窄</span></div>
+  <p style="font-size:.85rem;margin:.5rem 0 1rem;color:var(--text-secondary)">5.67亿MAU形成话题讨论的网络效应，但不如微信/抖音强。</p>
+
+  <div class="moat-item"><span class="moat-label">转换成本</span><span class="moat-rating none">无</span></div>
+  <p style="font-size:.85rem;margin:.5rem 0 1rem;color:var(--text-secondary)">用户可以同时使用多个社交平台，无锁定。</p>
+
+  <div class="moat-item"><span class="moat-label">成本优势</span><span class="moat-rating none">无</span></div>
+  <p style="font-size:.85rem;margin:.5rem 0 1rem;color:var(--text-secondary)">无明显成本优势。</p>
+
+  <div class="moat-item"><span class="moat-label">无形资产</span><span class="moat-rating narrow">窄</span></div>
+  <p style="font-size:.85rem;margin:.5rem 0 1rem;color:var(--text-secondary)">"热搜"="微博"的品牌心智；ICP牌照是壁垒但不独特。</p>
+
+  <div class="moat-item"><span class="moat-label">有效规模</span><span class="moat-rating narrow">窄</span></div>
+  <p style="font-size:.85rem;margin:.5rem 0 1rem;color:var(--text-secondary)">中国"公共舆论广场"本质上只需要一个，微博占据了这个位置。</p>
+
+  <div class="highlight-box" style="margin-top:1.5rem">
+    <div class="hl-label">护城河总评</div>
+    <p style="font-size:.88rem"><strong>窄护城河，趋势：侵蚀中。</strong> 微博的"公共舆论广场"地位是独特的——没有第二个平台能在热点事件中聚集如此多的实时讨论。但这条护城河正在被抖音热搜、小红书种草、微信视频号等多方侵蚀。10年后可能更窄。</p>
+  </div>
+</section>
+
+<!-- ══ Module 5 ══ -->
+<section class="module" id="financials">
+  <div class="module-header"><div class="module-num n5">05</div><h2>财务深度分析</h2></div>
+
+  <h3>季度趋势（2025年）</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>指标</th><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th><th class="num">全年</th></tr></thead>
+    <tbody>
+      <tr><td>营收</td><td class="num">$396.9M</td><td class="num">$444.8M</td><td class="num">$442.3M</td><td class="num">$473.3M</td><td class="num">$1.76B</td></tr>
+      <tr><td>同比增速</td><td class="num">—</td><td class="num">—</td><td class="num">-5% YoY</td><td class="num">+4% YoY</td><td class="num">flat</td></tr>
+      <tr><td>Non-GAAP营业利润率</td><td class="num">~33%</td><td class="num">36%</td><td class="num">27%</td><td class="num">21%</td><td class="num">30%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warning"><div class="callout-title">利润率警告</div>
+    Q4利润率从36%暴跌至21%——费用增长16%（广告制作和市场营销）。如果这是趋势性的而非季节性的，2026年利润率可能进一步压缩。
+  </div>
+
+  <h3>多年利润表趋势</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>指标</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th></tr></thead>
+    <tbody>
+      <tr><td>营收</td><td class="num">$1.84B</td><td class="num">$1.80B</td><td class="num">$1.75B</td><td class="num">$1.76B</td></tr>
+      <tr><td>净利润</td><td class="num">$228M</td><td class="num">$192M</td><td class="num">$301M</td><td class="num">$449M</td></tr>
+      <tr><td>净利润率</td><td class="num">12.4%</td><td class="num">10.7%</td><td class="num">17.2%</td><td class="num">25.5%</td></tr>
+      <tr><td>ROE</td><td class="num">~13%</td><td class="num">~10%</td><td class="num">~15%</td><td class="num">~24%</td></tr>
+    </tbody>
+  </table></div>
+  <p>3年连续下滑后微稳——收入从$1.84B降至$1.76B，但净利润从$228M升至$449M，体现了成本优化效果。</p>
+
+  <h3>资产负债表健康度</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>指标</th><th class="num">数值</th><th>评估</th></tr></thead>
+    <tbody>
+      <tr><td>现金+短期投资</td><td class="num">$24.1亿</td><td style="color:var(--green)">极充裕</td></tr>
+      <tr><td>有息负债（可转债）</td><td class="num">~$11亿</td><td>—</td></tr>
+      <tr><td>净现金</td><td class="num">~$13亿 ($5.31/ADS)</td><td style="color:var(--green)">占市值60%</td></tr>
+      <tr><td>流动比率</td><td class="num">~2.5x</td><td style="color:var(--green)">安全</td></tr>
+      <tr><td>D/E</td><td class="num">~0.4x</td><td style="color:var(--green)">低杠杆</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>现金流质量</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>指标</th><th class="num">2024</th><th>评估</th></tr></thead>
+    <tbody>
+      <tr><td>经营现金流 (OCF)</td><td class="num">$640M</td><td>—</td></tr>
+      <tr><td>资本开支 (Capex)</td><td class="num">$62M</td><td>仅占收入3.5%——极度轻资产</td></tr>
+      <tr><td>自由现金流 (FCF)</td><td class="num">$578M</td><td style="color:var(--green)">强劲</td></tr>
+      <tr><td>OCF/NI</td><td class="num">142%</td><td style="color:var(--green)">优质</td></tr>
+      <tr><td>FCF/NI</td><td class="num">129%</td><td style="color:var(--green)">优质</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>所有者盈余计算（2025年）</h3>
+  <div class="code-block">
+所有者盈余 = NI $449M + D&A ~$80M + SBC ~$100M - Capex ~$62M ≈ $567M
+
+OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
+  </div>
+  <p><strong>65.9%的所有者盈余收益率</strong>是一个极端异常值——市场对微博运营业务的定价仅为1.5年FCF，意味着市场认为这门生意即将消亡。</p>
+</section>
+
+<!-- ══ Module 6 ══ -->
+<section class="module" id="earningscall">
+  <div class="module-header"><div class="module-num n6">06</div><h2>电话会分析</h2></div>
+
+  <h3>Q4 2025 电话会核心要点</h3>
+  <ul>
+    <li><strong>AI兴趣推荐流</strong>（2025年7月上线）提升内容发现效率</li>
+    <li><strong>AI视频创作工具</strong>使原创视频创作者+40% YoY</li>
+    <li><strong>AI广告创意</strong>占推广流消费40%</li>
+    <li><strong>智能搜索MAU</strong>达1800万+</li>
+    <li><strong>电商、本地生活</strong>广告收入显著增长</li>
+    <li>没有给出2026年明确指引</li>
+  </ul>
+
+  <div class="callout warning"><div class="callout-title">利润率演变警告</div>
+    管理层承诺"持续改善首页信任度和可预测性"，但没有解释Q4利润率暴跌的根本原因。分析师最担心的是：剔除阿里后广告下降13%，核心广告业务正在萎缩。
+  </div>
+</section>
+
+<!-- ══ Module 7 ══ -->
+<section class="module" id="valuation">
+  <div class="module-header"><div class="module-num n7">07</div><h2>多模型估值</h2></div>
+
+  <h3>1. 相对估值</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>指标</th><th class="num">WB</th><th class="num">Meta</th><th class="num">Snap</th></tr></thead>
+    <tbody>
+      <tr><td>P/E (TTM)</td><td class="num">5.2x</td><td class="num">~25x</td><td class="num">~亏损</td></tr>
+      <tr><td>EV/Revenue</td><td class="num">0.49x</td><td class="num">~8x</td><td class="num">—</td></tr>
+      <tr><td>EV/FCF</td><td class="num">1.5x</td><td class="num">~20x</td><td class="num">—</td></tr>
+    </tbody>
+  </table></div>
+  <p>与全球同行比极度便宜，但增长差距巨大。</p>
+
+  <h3>2. DCF估值（三种情景，独立估值不参考现价）</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>假设</th><th class="num">悲观</th><th class="num">基准</th><th class="num">乐观</th></tr></thead>
+    <tbody>
+      <tr><td>所有者盈余基准</td><td class="num">$400M (-3%/yr)</td><td class="num">$500M (0%增长)</td><td class="num">$550M (+3%增长)</td></tr>
+      <tr><td>WACC</td><td class="num">12%</td><td class="num">10%</td><td class="num">9%</td></tr>
+      <tr><td>Terminal倍数</td><td class="num">5x</td><td class="num">7x</td><td class="num">9x</td></tr>
+      <tr><td>运营业务价值</td><td class="num">$25亿</td><td class="num">$35亿</td><td class="num">$49.5亿</td></tr>
+      <tr><td>+ 净现金</td><td class="num">$13亿</td><td class="num">$13亿</td><td class="num">$13亿</td></tr>
+      <tr><td>总价值</td><td class="num">$38亿</td><td class="num">$48亿</td><td class="num">$62.5亿</td></tr>
+      <tr><td><strong>每ADS价值</strong></td><td class="num"><strong>$15.5</strong></td><td class="num"><strong>$19.6</strong></td><td class="num"><strong>$25.5</strong></td></tr>
+      <tr><td>概率权重</td><td class="num">25%</td><td class="num">50%</td><td class="num">25%</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>概率加权公允价值：$19.8/ADS</strong></p>
+
+  <h3>3. 所有者盈余收益率</h3>
+  <p>$567M / EV $860M = <strong>65.9%</strong> — 极端异常值，表明市场严重低估。</p>
+
+  <h3>4. PEG比率</h3>
+  <p>P/E 5.2x &divide; 增长率0% = <strong>无穷大</strong> — PEG方法不适用于零增长公司。</p>
+
+  <h3>5. DDM（股利折现模型）</h3>
+  <p>$0.61 / (10%-0%) = <strong>$6.10</strong>（偏低，因为payout ratio仅34%）。</p>
+
+  <h3>6. NAV</h3>
+  <p>净现金$13亿 + 运营业务6x FCF = $13亿 + $34.7亿 = $47.7亿 / 245M = <strong>$19.5/ADS</strong>。</p>
+
+  <h3>7. 反向DCF</h3>
+  <p>在独立公允价值$18下，市场将为微博定价7x所有者盈余+净现金，对于一家零增长的媒体公司来说这是合理的估值水平。</p>
+
+  <h3>8. SOTP</h3>
+  <p>不适用（单一业务）。</p>
+
+  <h3>估值汇总</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>方法</th><th class="num">估值区间</th><th>适用性</th></tr></thead>
+    <tbody>
+      <tr><td>DCF（概率加权）</td><td class="num">$15.5 - $25.5</td><td><span class="badge buy">核心方法</span></td></tr>
+      <tr><td>NAV</td><td class="num">$19.5</td><td><span class="badge buy">核心方法</span></td></tr>
+      <tr><td>所有者盈余</td><td class="num">极端低估信号</td><td><span class="badge buy">核心方法</span></td></tr>
+      <tr><td>DDM</td><td class="num">$6.10（下限）</td><td><span class="badge hold">仅参考</span></td></tr>
+      <tr><td>PEG</td><td class="num">不适用</td><td><span class="badge hold">不适用</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="highlight-box">
+    <div class="hl-label">综合合理价值</div>
+    <p style="font-size:.92rem"><strong>$14-$22/ADS，中位数$18。</strong> 微博的定价悖论：$24.1亿现金+$5.7亿年度FCF的企业，企业价值仅$8.6亿——市场只给了1.5年的FCF。即使业务每年萎缩5%，这个估值仍然偏低。核心风险不是"值不值"而是"催化剂在哪"——没有明确的重新定价触发点。</p>
+  </div>
+</section>
+
+<!-- ══ Module 8 ══ -->
+<section class="module" id="competition">
+  <div class="module-header"><div class="module-num n8">08</div><h2>竞争与行业分析</h2></div>
+
+  <h3>中国社交媒体竞争格局</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>平台</th><th class="num">MAU</th><th>定位</th><th>趋势</th></tr></thead>
+    <tbody>
+      <tr><td>抖音</td><td class="num">7.16亿</td><td>短视频霸主</td><td>广告增速最快</td></tr>
+      <tr><td>微信</td><td class="num">13亿</td><td>社交通讯垄断</td><td>视频号崛起</td></tr>
+      <tr><td>小红书</td><td class="num">3.2亿</td><td>生活方式/种草</td><td>增长最快</td></tr>
+      <tr><td>微博</td><td class="num">5.67亿</td><td>热搜/舆论广场</td><td>增长停滞</td></tr>
+      <tr><td>B站</td><td class="num">3亿</td><td>Z世代/长视频</td><td>亏损中</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>波特五力</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>力量</th><th class="num">强度</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>供应商（内容创作者）</td><td class="num" style="color:var(--red)">高</td><td>KOL可以轻松迁移到抖音/小红书</td></tr>
+      <tr><td>买方（广告主）</td><td class="num" style="color:var(--red)">高</td><td>广告主有多个平台选择，微博不是必须</td></tr>
+      <tr><td>替代品</td><td class="num" style="color:var(--red)">极高</td><td>抖音/小红书/视频号在各个维度替代微博</td></tr>
+      <tr><td>新进入者</td><td class="num" style="color:var(--green)">低</td><td>社交平台有网络效应壁垒</td></tr>
+      <tr><td>行业竞争</td><td class="num" style="color:var(--red)">极高</td><td>中国社交媒体是全球竞争最激烈的市场之一</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ══ Module 9 ══ -->
+<section class="module" id="technical">
+  <div class="module-header"><div class="module-num n9">09</div><h2>技术面与K线分析</h2></div>
+  <div class="callout info"><div class="callout-title">巴菲特声明</div>巴菲特本人不使用技术分析。本节作为完整性补充，供交易型投资者参考。</div>
+
+  <h3>关键支撑与阻力位</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>类型</th><th class="num">价位</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>强支撑</td><td class="num">$7.10</td><td>52周低点</td></tr>
+      <tr><td>支撑</td><td class="num">$8.00</td><td>整数关口</td></tr>
+      <tr><td>当前价</td><td class="num">$8.85</td><td>—</td></tr>
+      <tr><td>阻力</td><td class="num">$10.00</td><td>—</td></tr>
+      <tr><td>强阻力</td><td class="num">$13.00</td><td>52周高点区域</td></tr>
+      <tr><td>目标位</td><td class="num">$15.00+</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>长期下行通道（从2018年高点$140+持续下跌），近期在$7-13区间横盘。</p>
+</section>
+
+<!-- ══ Module 10 ══ -->
+<section class="module" id="catalysts">
+  <div class="module-header"><div class="module-num n10">10</div><h2>增长催化剂与前景展望</h2></div>
+
+  <h3>短期催化剂（6个月内）</h3>
+  <ul>
+    <li><strong>2026Q1财报（5月）</strong>：验证Q4利润率下滑是否持续</li>
+    <li><strong>分红除权日4月17日</strong>：6.9%股息率吸引收益投资者</li>
+    <li><strong>AI产品落地效果</strong>：智能搜索、AI视频、AI广告创意</li>
+  </ul>
+
+  <h3>中长期增长引擎（3-5年）</h3>
+  <ul>
+    <li><strong>AI重构内容推荐</strong>可能逆转用户时长下滑</li>
+    <li><strong>提高分红率</strong>（从34%到50%+），股息率可达10%+</li>
+    <li><strong>阿里巴巴私有化微博</strong>的可能性（低概率但高影响）</li>
+    <li><strong>中国消费复苏</strong>带动广告市场回暖</li>
+  </ul>
+
+  <h3>3-5年展望</h3>
+  <p>到2030年，微博可能是一个<strong>"稳定分红的现金牛"</strong>——收入可能小幅下滑至$15-16亿，但FCF仍能维持$4-5亿。最好的结果是AI产品成功+提高分红=一只中国版的IBM。最坏的结果是用户加速流失+广告收入断崖，成为中国版的MySpace。</p>
+</section>
+
+<!-- ══ Module 11 ══ -->
+<section class="module" id="risk">
+  <div class="module-header"><div class="module-num n11">11</div><h2>风险矩阵</h2></div>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>风险类型</th><th class="num">评分</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>竞争风险</td><td class="num" style="color:var(--red)">5/5</td><td><strong>最大风险！</strong> 抖音/小红书正在系统性蚕食用户时间和广告份额</td></tr>
+      <tr><td>经营风险</td><td class="num" style="color:var(--red)">4/5</td><td>收入零增长、利润率下滑、过度依赖阿里广告</td></tr>
+      <tr><td>监管/政策</td><td class="num" style="color:var(--yellow)">3/5</td><td>中国互联网监管常态化，微博作为舆论平台面临审查压力</td></tr>
+      <tr><td>宏观风险</td><td class="num" style="color:var(--yellow)">3/5</td><td>中国广告市场与宏观经济高度相关</td></tr>
+      <tr><td>财务风险</td><td class="num" style="color:var(--green)">2/5</td><td>$24亿现金+$5.8亿FCF，财务安全</td></tr>
+      <tr><td>估值风险</td><td class="num" style="color:var(--green)">1/5</td><td>EV/FCF 1.5x，已price in极端悲观</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout danger" style="margin-top:1.5rem">
+    <div class="callout-title">黑天鹅情景</div>
+    <strong>最坏情况：</strong>微博MAU跌破4亿+广告收入断崖下滑50%+阿里退出 → 估值可能跌至净现金值$5.3/ADS。概率5-8%。<br>
+    <strong>次坏情况：</strong>收入持续下滑10%/年+利润率压缩至15% → FCF降至$2亿 → 估值$10-12。概率25-30%。
+  </div>
+</section>
+
+<!-- ══ Module 12 ══ -->
+<section class="module" id="scorecard">
+  <div class="module-header"><div class="module-num n12">12</div><h2>巴菲特计分卡与投资决策</h2></div>
+
+  <h3>巴菲特计分卡（满分36分）</h3>
+  <div class="scorecard-grid">
+    <div class="score-row"><span class="criteria">业务是否易于理解</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span></div><span class="score">3/3</span></div>
+    <div class="score-row"><span class="criteria">经营历史是否一致</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></div><span class="score">2/3</span></div>
+    <div class="score-row"><span class="criteria">长期前景是否良好</span><div class="dots"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span></div><span class="score">1/3</span></div>
+    <div class="score-row"><span class="criteria">管理层坦诚与理性</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></div><span class="score">2/3</span></div>
+    <div class="score-row"><span class="criteria">主人翁经营心态</span><div class="dots"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span></div><span class="score">1/3</span></div>
+    <div class="score-row"><span class="criteria">高ROE低负债</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></div><span class="score">2/3</span></div>
+    <div class="score-row"><span class="criteria">强劲自由现金流</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span></div><span class="score">3/3</span></div>
+    <div class="score-row"><span class="criteria">宽广经济护城河</span><div class="dots"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span></div><span class="score">1/3</span></div>
+    <div class="score-row"><span class="criteria">保守会计处理</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></div><span class="score">2/3</span></div>
+    <div class="score-row"><span class="criteria">存在安全边际</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span></div><span class="score">3/3</span></div>
+    <div class="score-row"><span class="criteria">定价能力（抗通胀）</span><div class="dots"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span></div><span class="score">1/3</span></div>
+    <div class="score-row"><span class="criteria">低资本再投入需求</span><div class="dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></div><span class="score">2/3</span></div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:16px;margin:1.5rem 0">
+    <div class="grade-badge c">C</div>
+    <div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:600;color:var(--heading)">总分：23/36 — 一般偏上</div>
+      <div style="font-size:.82rem;color:var(--text-secondary)">C+级 (20-23分)：极端估值和现金堡垒是突出亮点（3/3），竞争力侵蚀和管理层利益错位是主要扣分项</div>
+    </div>
+  </div>
+
+  <h3>投资决策</h3>
+  <div class="decision-box">
+    <div class="decision-header">
+      <div class="decision-rating">买入</div>
+      <div class="decision-price"><div class="current">$8.85</div><div class="target">12个月目标价：$18（基准）</div></div>
+    </div>
+
+    <h3>12个月目标价</h3>
+    <div class="table-wrapper"><table>
+      <thead><tr><th>情景</th><th class="num">目标价</th><th class="num">概率</th></tr></thead>
+      <tbody>
+        <tr><td>乐观</td><td class="num">$22</td><td class="num">25%</td></tr>
+        <tr><td>基准</td><td class="num">$18</td><td class="num">50%</td></tr>
+        <tr><td>悲观</td><td class="num">$13</td><td class="num">25%</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>建仓策略</h3>
+    <div class="table-wrapper"><table>
+      <thead><tr><th>仓位</th><th class="num">价位</th><th class="num">比例</th><th>逻辑</th></tr></thead>
+      <tbody>
+        <tr><td>首仓</td><td class="num">$14</td><td class="num">40%</td><td>FV中位$18的80%</td></tr>
+        <tr><td>二仓</td><td class="num">$13</td><td class="num">35%</td><td>FV中位$18的72%</td></tr>
+        <tr><td>三仓</td><td class="num">$11</td><td class="num">25%</td><td>FV中位$18的61%</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>止盈策略</h3>
+    <ul>
+      <li><strong>止盈①</strong>：$16（减仓30%）</li>
+      <li><strong>止盈②</strong>：$18（减仓30%）</li>
+      <li><strong>止盈③</strong>：$22（清仓）</li>
+    </ul>
+    <p style="font-size:.82rem;color:var(--text-secondary);margin-top:.5rem">不设止损。</p>
+
+    <h3>仓位建议</h3>
+    <ul>
+      <li><strong>建议仓位</strong>：投资组合的3-5%</li>
+      <li><strong>持有周期</strong>：中长期持有（18-36个月）</li>
+      <li><strong>适合投资者</strong>：价值/收益型投资者</li>
+    </ul>
+  </div>
+
+  <h3>关键监控指标</h3>
+  <ul>
+    <li>广告收入增速（尤其剔除阿里后的自然增速）</li>
+    <li>Non-GAAP营业利润率（需维持25%+）</li>
+    <li>MAU/DAU趋势（跌破5亿MAU即预警）</li>
+    <li>分红金额和回购行为</li>
+    <li>AI产品对用户时长和广告ARPU的影响</li>
+  </ul>
+
+  <h3>事件时间表</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>日期</th><th>事件</th><th>重要性</th></tr></thead>
+    <tbody>
+      <tr><td>2026-04-17</td><td>分红除权日</td><td><span class="badge hold">中</span></td></tr>
+      <tr><td>2026-05 中旬</td><td>Q1 2026财报</td><td><span class="badge sell">极高</span></td></tr>
+      <tr><td>2026-08</td><td>Q2财报</td><td><span class="badge sell">高</span></td></tr>
+      <tr><td>2026-11</td><td>Q3财报</td><td><span class="badge hold">中</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout success"><div class="callout-title">下一个催化剂</div>
+    <strong>Q1 2026财报（5月）</strong>——需验证Q4利润率下滑是季节性还是结构性，以及AI产品是否开始贡献用户增长。
+  </div>
+</section>
+
+<div class="disclaimer">
+  <strong>免责声明：</strong>本分析仅供教育和研究用途，不构成投资建议。"巴菲特"视角是一个受沃伦·巴菲特公开表述的投资原则启发的分析框架——它并不代表沃伦·巴菲特本人对任何具体公司的观点。所有投资都有风险，请在做出投资决策前咨询合格的财务顾问。
+</div>
+
+<footer class="page-footer">
+  <p>Generated by <strong>巴菲特神谕分析师</strong> &middot; <a href="https://github.com/JaceXie" target="_blank" rel="noopener">@JaceXie</a></p>
+  <p style="margin-top:4px">分析日期：2026-04-09 &middot; 数据来源：SEC Filing, Yahoo Finance, StockAnalysis, 微博IR</p>
+</footer>
+
+</main>
+</div>
+
+<button class="back-to-top" id="backToTop" title="回到顶部" aria-label="Back to top">&#8593;</button>
+
+<script>
+(function(){
+  var html=document.documentElement,toggle=document.getElementById('themeToggle'),icon=document.getElementById('themeIcon');
+  var saved=localStorage.getItem('wb-theme');
+  if(saved)html.setAttribute('data-theme',saved);
+  else if(window.matchMedia('(prefers-color-scheme:dark)').matches)html.setAttribute('data-theme','dark');
+  function updateIcon(){icon.innerHTML=html.getAttribute('data-theme')==='dark'?'&#9788;':'&#9790;'}
+  updateIcon();
+  toggle.addEventListener('click',function(){var n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('wb-theme',n);updateIcon()});
+  var sections=document.querySelectorAll('.module,.verdict,.hero,.decision-summary');
+  var navLinks=document.querySelectorAll('.sidebar-nav a');
+  function updateActive(){var c='';sections.forEach(function(s){if(window.scrollY>=s.offsetTop-100)c=s.id});navLinks.forEach(function(l){l.classList.remove('active');if(l.getAttribute('href')==='#'+c)l.classList.add('active')})}
+  window.addEventListener('scroll',updateActive,{passive:true});updateActive();
+  var btn=document.getElementById('backToTop');
+  window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});
+  btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+  navLinks.forEach(function(l){l.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+})();
+</script>
+</body>
+</html>
