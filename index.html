@@ -148,9 +148,9 @@ td:first-child{font-weight:500;color:var(--heading)}
 .grade-badge.a{background:var(--green-bg);color:var(--green);border:2px solid var(--green)}
 .grade-badge.b{background:var(--blue-bg);color:var(--blue);border:2px solid var(--blue)}
 .grade-badge.c{background:var(--yellow-bg);color:var(--yellow);border:2px solid var(--yellow)}
-.decision-box{background:var(--surface);border:2px solid var(--green);border-radius:var(--radius-lg);padding:2rem;margin:1.5rem 0}
+.decision-box{background:var(--surface);border:2px solid var(--yellow);border-radius:var(--radius-lg);padding:2rem;margin:1.5rem 0}
 .decision-header{display:flex;align-items:center;gap:16px;margin-bottom:1.5rem}
-.decision-rating{font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:700;padding:8px 20px;border-radius:var(--radius);background:var(--green-bg);color:var(--green)}
+.decision-rating{font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:700;padding:8px 20px;border-radius:var(--radius);background:var(--yellow-bg);color:var(--yellow)}
 .decision-price{font-family:'JetBrains Mono',monospace}
 .decision-price .current{font-size:1.8rem;font-weight:700;color:var(--heading)}
 .decision-price .target{font-size:.82rem;color:var(--text-secondary)}
@@ -212,7 +212,7 @@ td:first-child{font-weight:500;color:var(--heading)}
     <div class="hero-stat"><div class="label">净现金</div><div class="value">$13亿</div><div class="change up">$5.31/ADS</div></div>
     <div class="hero-stat"><div class="label">PE (TTM)</div><div class="value">5.2x</div></div>
     <div class="hero-stat"><div class="label">股息率</div><div class="value">6.9%</div><div class="change up">$0.61/ADS</div></div>
-    <div class="hero-stat"><div class="label">评级</div><div class="value" style="color:var(--green)">买入</div></div>
+    <div class="hero-stat"><div class="label">评级</div><div class="value" style="color:var(--yellow)">持有</div></div>
   </div>
 </section>
 
@@ -226,9 +226,9 @@ td:first-child{font-weight:500;color:var(--heading)}
 <!-- ══ Decision Summary ══ -->
 <section class="decision-summary" id="summary">
   <div class="ds-item"><div class="ds-label">巴菲特计分</div><div class="ds-value">23/36</div><div class="ds-note">C+级 · 一般偏上</div></div>
-  <div class="ds-item"><div class="ds-label">投资评级</div><div class="ds-value rating-buy">买入</div><div class="ds-note">极端估值+现金堡垒</div></div>
-  <div class="ds-item"><div class="ds-label">12个月目标价</div><div class="ds-value">$18</div><div class="ds-note">独立估值中位数</div></div>
-  <div class="ds-item"><div class="ds-label">首仓买入价</div><div class="ds-value">$14</div><div class="ds-note">FV中位$18的80%</div></div>
+  <div class="ds-item"><div class="ds-label">投资评级</div><div class="ds-value rating-hold">持有</div><div class="ds-note">极端估值+现金堡垒</div></div>
+  <div class="ds-item"><div class="ds-label">12个月目标价</div><div class="ds-value">$13</div><div class="ds-note">前瞻估值中位数</div></div>
+  <div class="ds-item"><div class="ds-label">首仓买入价</div><div class="ds-value">$10</div><div class="ds-note">FV中位$13的77%</div></div>
   <div class="ds-item"><div class="ds-label">股息率</div><div class="ds-value">6.9%</div><div class="ds-note">$0.61/ADS 年度</div></div>
 </section>
 
@@ -454,11 +454,11 @@ OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
       <tr><td>运营业务价值</td><td class="num">$25亿</td><td class="num">$35亿</td><td class="num">$49.5亿</td></tr>
       <tr><td>+ 净现金</td><td class="num">$13亿</td><td class="num">$13亿</td><td class="num">$13亿</td></tr>
       <tr><td>总价值</td><td class="num">$38亿</td><td class="num">$48亿</td><td class="num">$62.5亿</td></tr>
-      <tr><td><strong>每ADS价值</strong></td><td class="num"><strong>$15.5</strong></td><td class="num"><strong>$19.6</strong></td><td class="num"><strong>$25.5</strong></td></tr>
+      <tr><td><strong>每ADS价值</strong></td><td class="num"><strong>$9.9</strong></td><td class="num"><strong>$13.1</strong></td><td class="num"><strong>$19.0</strong></td></tr>
       <tr><td>概率权重</td><td class="num">25%</td><td class="num">50%</td><td class="num">25%</td></tr>
     </tbody>
   </table></div>
-  <p><strong>概率加权公允价值：$19.8/ADS</strong></p>
+  <p><strong>概率加权公允价值：~$13.3/ADS</strong></p>
 
   <h3>3. 所有者盈余收益率</h3>
   <p>$567M / EV $860M = <strong>65.9%</strong> — 极端异常值，表明市场严重低估。</p>
@@ -473,7 +473,7 @@ OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
   <p>净现金$13亿 + 运营业务6x FCF = $13亿 + $34.7亿 = $47.7亿 / 245M = <strong>$19.5/ADS</strong>。</p>
 
   <h3>7. 反向DCF</h3>
-  <p>在独立公允价值$18下，市场将为微博定价7x所有者盈余+净现金，对于一家零增长的媒体公司来说这是合理的估值水平。</p>
+  <p>在独立公允价值$13下，市场将为微博定价5x前瞻FCF+净现金，对于一家零增长的媒体公司来说这是合理的估值水平。</p>
 
   <h3>8. SOTP</h3>
   <p>不适用（单一业务）。</p>
@@ -482,7 +482,7 @@ OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
   <div class="table-wrapper"><table>
     <thead><tr><th>方法</th><th class="num">估值区间</th><th>适用性</th></tr></thead>
     <tbody>
-      <tr><td>DCF（概率加权）</td><td class="num">$15.5 - $25.5</td><td><span class="badge buy">核心方法</span></td></tr>
+      <tr><td>DCF（概率加权）</td><td class="num">$9.9 - $19.0</td><td><span class="badge buy">核心方法</span></td></tr>
       <tr><td>NAV</td><td class="num">$19.5</td><td><span class="badge buy">核心方法</span></td></tr>
       <tr><td>所有者盈余</td><td class="num">极端低估信号</td><td><span class="badge buy">核心方法</span></td></tr>
       <tr><td>DDM</td><td class="num">$6.10（下限）</td><td><span class="badge hold">仅参考</span></td></tr>
@@ -491,7 +491,7 @@ OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
   </table></div>
   <div class="highlight-box">
     <div class="hl-label">综合合理价值</div>
-    <p style="font-size:.92rem"><strong>$14-$22/ADS，中位数$18。</strong> 微博的定价悖论：$24.1亿现金+$5.7亿年度FCF的企业，企业价值仅$8.6亿——市场只给了1.5年的FCF。即使业务每年萎缩5%，这个估值仍然偏低。核心风险不是"值不值"而是"催化剂在哪"——没有明确的重新定价触发点。</p>
+    <p style="font-size:.92rem"><strong>$10-$19/ADS，中位数$13。</strong> 用Q4利润率(21%)而非全年峰值(30%)外推，前瞻FCF约$3.8亿。5x FCF + 净现金$13亿 = $13/ADS。核心风险不是"值不值"而是"催化剂在哪"——没有明确的重新定价触发点。</p>
   </div>
 </section>
 
@@ -621,17 +621,17 @@ OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
   <h3>投资决策</h3>
   <div class="decision-box">
     <div class="decision-header">
-      <div class="decision-rating">买入</div>
-      <div class="decision-price"><div class="current">$8.85</div><div class="target">12个月目标价：$18（基准）</div></div>
+      <div class="decision-rating">持有</div>
+      <div class="decision-price"><div class="current">$8.85</div><div class="target">12个月目标价：$13（基准）</div></div>
     </div>
 
     <h3>12个月目标价</h3>
     <div class="table-wrapper"><table>
       <thead><tr><th>情景</th><th class="num">目标价</th><th class="num">概率</th></tr></thead>
       <tbody>
-        <tr><td>乐观</td><td class="num">$22</td><td class="num">25%</td></tr>
-        <tr><td>基准</td><td class="num">$18</td><td class="num">50%</td></tr>
-        <tr><td>悲观</td><td class="num">$13</td><td class="num">25%</td></tr>
+        <tr><td>乐观</td><td class="num">$19</td><td class="num">25%</td></tr>
+        <tr><td>基准</td><td class="num">$13</td><td class="num">50%</td></tr>
+        <tr><td>悲观</td><td class="num">$10</td><td class="num">25%</td></tr>
       </tbody>
     </table></div>
 
@@ -639,17 +639,17 @@ OE收益率 = $567M / 总EV $860M = 65.9% (极端高)
     <div class="table-wrapper"><table>
       <thead><tr><th>仓位</th><th class="num">价位</th><th class="num">比例</th><th>逻辑</th></tr></thead>
       <tbody>
-        <tr><td>首仓</td><td class="num">$14</td><td class="num">40%</td><td>FV中位$18的80%</td></tr>
-        <tr><td>二仓</td><td class="num">$13</td><td class="num">35%</td><td>FV中位$18的72%</td></tr>
-        <tr><td>三仓</td><td class="num">$11</td><td class="num">25%</td><td>FV中位$18的61%</td></tr>
+        <tr><td>首仓</td><td class="num">$10</td><td class="num">40%</td><td>FV中位$13的77%</td></tr>
+        <tr><td>二仓</td><td class="num">$9</td><td class="num">35%</td><td>FV中位$13的69%</td></tr>
+        <tr><td>三仓</td><td class="num">$8</td><td class="num">25%</td><td>FV中位$13的62%</td></tr>
       </tbody>
     </table></div>
 
     <h3>止盈策略</h3>
     <ul>
-      <li><strong>止盈①</strong>：$16（减仓30%）</li>
-      <li><strong>止盈②</strong>：$18（减仓30%）</li>
-      <li><strong>止盈③</strong>：$22（清仓）</li>
+      <li><strong>止盈①</strong>：$13（减仓30%）</li>
+      <li><strong>止盈②</strong>：$16（减仓30%）</li>
+      <li><strong>止盈③</strong>：$19（清仓）</li>
     </ul>
     <p style="font-size:.82rem;color:var(--text-secondary);margin-top:.5rem">不设止损。</p>
 
